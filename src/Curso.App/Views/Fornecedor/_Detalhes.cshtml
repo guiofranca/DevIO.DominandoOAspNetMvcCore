@@ -1,0 +1,19 @@
+@model FornecedorViewModel
+
+<ul>
+    <li><strong>Nome:</strong> @Model.Nome</li>
+    <li><strong>Documento:</strong> @Model.Documento</li>
+    <li><strong>Data de Cadastro:</strong> @Model.DataCadastro</li>
+    <li><strong>Tipo de Fornecedor:</strong> @Model.TipoFornecedor</li>
+    <li><strong>Endereco:</strong> 
+        <ul>
+            <li><strong>CEP:</strong> @(Model.Endereco?.Cep ?? "N/A")</li>
+            <li><strong>Logradouro:</strong> @(Model.Endereco?.Logradouro ?? "N/A")</li>
+            <li><strong>Bairro:</strong> @(Model.Endereco?.Bairro ?? "N/A")</li>
+            <li><strong>Número:</strong> @(Model.Endereco?.Numero ?? "N/A")</li>
+            <li><strong>Complemento:</strong> @(Model.Endereco?.Complemento ?? "N/A")</li>
+            <li><strong>Cidade:</strong> @(Model.Endereco?.Cidade ?? "N/A")</li>
+            <li><strong>Estado:</strong> @(Model.Endereco?.Estado ?? "N/A")</li>
+        </ul>
+    </li>
+</ul>

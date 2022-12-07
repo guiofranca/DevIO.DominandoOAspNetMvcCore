@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Curso.App.Models;
+using Curso.App.ViewModels;
 
 namespace Curso.App.Controllers;
 

@@ -3,6 +3,7 @@ using System;
 using Curso.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Curso.Data.Migrations
 {
     [DbContext(typeof(CursoDbContext))]
-    partial class CursoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221205233219_EnderecoNullables")]
+    partial class EnderecoNullables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

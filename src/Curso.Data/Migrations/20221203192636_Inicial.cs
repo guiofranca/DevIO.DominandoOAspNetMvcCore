@@ -18,7 +18,7 @@ namespace Curso.Data.Migrations
                 name: "Fornecedores",
                 columns: table => new
                 {
-                    Id = table.Column<byte[]>(type: "binary(16)", nullable: false),
+                    Id = table.Column<Guid>(type: "UUID", nullable: false),
                     Nome = table.Column<string>(type: "varchar(200)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Documento = table.Column<string>(type: "varchar(14)", nullable: false)
@@ -38,7 +38,7 @@ namespace Curso.Data.Migrations
                 name: "Enderecos",
                 columns: table => new
                 {
-                    Id = table.Column<byte[]>(type: "binary(16)", nullable: false),
+                    Id = table.Column<Guid>(type: "UUID", nullable: false),
                     Logradouro = table.Column<string>(type: "varchar(200)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Numero = table.Column<string>(type: "varchar(50)", nullable: false)
@@ -53,7 +53,7 @@ namespace Curso.Data.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Estado = table.Column<string>(type: "varchar(2)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    FornecedorId = table.Column<byte[]>(type: "binary(16)", nullable: false),
+                    FornecedorId = table.Column<Guid>(type: "UUID", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     DataAtualizacao = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
@@ -73,8 +73,8 @@ namespace Curso.Data.Migrations
                 name: "Produtos",
                 columns: table => new
                 {
-                    Id = table.Column<byte[]>(type: "binary(16)", nullable: false),
-                    FornecedorId = table.Column<byte[]>(type: "binary(16)", nullable: false),
+                    Id = table.Column<Guid>(type: "UUID", nullable: false),
+                    FornecedorId = table.Column<Guid>(type: "UUID", nullable: false),
                     Nome = table.Column<string>(type: "varchar(200)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Descricao = table.Column<string>(type: "varchar(1000)", nullable: false)

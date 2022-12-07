@@ -11,7 +11,7 @@ public class FornecedorMapping : IEntityTypeConfiguration<Fornecedor>
         builder.HasKey(p => p.Id);
 
         builder.Property(p => p.Id)
-            .HasColumnType("binary(16)");
+            .HasColumnType("UUID");
 
         builder.Property(p => p.Nome)
             .IsRequired()

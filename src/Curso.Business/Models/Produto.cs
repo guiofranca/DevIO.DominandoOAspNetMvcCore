@@ -2,6 +2,7 @@ namespace Curso.Business.Models;
 
 public class Produto : Entity
 {
+    public Produto() : base() { }
     public Guid FornecedorId { get; set; }
     public string Nome { get; set; }
     public string Descricao { get; set; }

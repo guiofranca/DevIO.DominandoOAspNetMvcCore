@@ -1,0 +1,22 @@
+@model FornecedorViewModel
+
+@{
+    ViewData["Title"] = "Removendo Fornecedor";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <partial name="_Detalhes">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h4>Tem certeza que deseja excluir?</h4>
+        <form asp-action="Remover" method="post">
+            <a class="btn btn-primary" asp-action="Index">Voltar</a>
+            <button class="btn btn-danger" type="submit">Sim</button>
+        </form>
+    </div>
+</div>

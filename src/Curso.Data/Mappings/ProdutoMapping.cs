@@ -11,10 +11,10 @@ public class ProdutoMapping : IEntityTypeConfiguration<Produto>
         builder.HasKey(p => p.Id);
 
         builder.Property(p => p.Id)
-            .HasColumnType("binary(16)");
+            .HasColumnType("UUID");
             
         builder.Property(p => p.FornecedorId)
-            .HasColumnType("binary(16)");
+            .HasColumnType("UUID");
 
         builder.Property(p => p.Nome)
             .IsRequired()

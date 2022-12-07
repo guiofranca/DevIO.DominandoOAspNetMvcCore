@@ -19,12 +19,15 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
 
     public async Task Adicionar(TEntity entity)
     {
+        entity.DataCadastro = DateTime.Now;
+        entity.DataAtualizacao = DateTime.Now;
         DbSet.Add(entity);
         await SaveChanges();
     }
 
     public async Task Atualizar(TEntity entity)
     {
+        entity.DataAtualizacao = DateTime.Now;
         DbSet.Update(entity);
         await SaveChanges();
     }

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Curso.Data.Migrations
 {
     [DbContext(typeof(CursoDbContext))]
-    [Migration("20221130005000_Inicial")]
+    [Migration("20221203192636_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -24,9 +24,9 @@ namespace Curso.Data.Migrations
 
             modelBuilder.Entity("Curso.Business.Models.Endereco", b =>
                 {
-                    b.Property<byte[]>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("binary(16)");
+                        .HasColumnType("UUID");
 
                     b.Property<string>("Bairro")
                         .IsRequired()
@@ -54,9 +54,8 @@ namespace Curso.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(2)");
 
-                    b.Property<byte[]>("FornecedorId")
-                        .IsRequired()
-                        .HasColumnType("binary(16)");
+                    b.Property<Guid>("FornecedorId")
+                        .HasColumnType("UUID");
 
                     b.Property<string>("Logradouro")
                         .IsRequired()
@@ -76,9 +75,9 @@ namespace Curso.Data.Migrations
 
             modelBuilder.Entity("Curso.Business.Models.Fornecedor", b =>
                 {
-                    b.Property<byte[]>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("binary(16)");
+                        .HasColumnType("UUID");
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("tinyint(1)");
@@ -107,9 +106,9 @@ namespace Curso.Data.Migrations
 
             modelBuilder.Entity("Curso.Business.Models.Produto", b =>
                 {
-                    b.Property<byte[]>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("binary(16)");
+                        .HasColumnType("UUID");
 
                     b.Property<DateTime>("DataAtualizacao")
                         .HasColumnType("datetime(6)");
@@ -121,9 +120,8 @@ namespace Curso.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(1000)");
 
-                    b.Property<byte[]>("FornecedorId")
-                        .IsRequired()
-                        .HasColumnType("binary(16)");
+                    b.Property<Guid>("FornecedorId")
+                        .HasColumnType("UUID");
 
                     b.Property<string>("Imagem")
                         .IsRequired()
