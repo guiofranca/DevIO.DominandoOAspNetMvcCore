@@ -82,6 +82,11 @@ public class ProdutoController : BaseController
         }
 
         var produto = _mapper.Map<Produto>(produtoViewModel);
+        if(produto.Imagem == null) {
+            var produtoOriginal = await _repositorioProduto.ObterPorId(produto.Id);
+            produto.Imagem = produtoOriginal.Imagem;
+        }
+
         await _repositorioProduto.Atualizar(produto);
         return RedirectToAction(nameof(Index));
     }

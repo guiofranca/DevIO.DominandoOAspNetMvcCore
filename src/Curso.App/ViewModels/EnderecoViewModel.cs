@@ -17,4 +17,5 @@ public class EnderecoViewModel
     [StringLength(2)]
     public string Estado { get; set; }
     public FornecedorViewModel? Fornecedor { get; set; }
+    public Guid? FornecedorId { get; set; }
 }

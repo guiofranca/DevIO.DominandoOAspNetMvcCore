@@ -11,7 +11,7 @@
             <li><strong>@Html.DisplayNameFor(m => m.Nome):</strong> @Model.Nome</li>
             <li><strong>@Html.DisplayNameFor(m => m.Descricao):</strong> @Model.Descricao</li>
             <li><strong>@Html.DisplayNameFor(m => m.Valor):</strong> @Model.Valor.ToString("C")</li>
-            <li><strong>@Html.DisplayNameFor(m => m.Fornecedor):</strong> @Model.Fornecedor.Nome</li>
+            <li><strong>@Html.DisplayNameFor(m => m.Fornecedor):</strong> @(Model.Fornecedor?.Nome ?? "Sem fornecedor")</li>
         </ul>
-    </div>    
+    </div>
 </div>

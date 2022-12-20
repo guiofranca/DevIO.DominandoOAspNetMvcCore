@@ -1,0 +1,30 @@
+@model EnderecoViewModel
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <thead class="table-info">
+                <th>@Html.DisplayNameFor(e => e.Cep)</th>
+                <th>@Html.DisplayNameFor(e => e.Logradouro)</th>
+                <th>@Html.DisplayNameFor(e => e.Bairro)</th>
+                <th>@Html.DisplayNameFor(e => e.Numero)</th>
+                <th>@Html.DisplayNameFor(e => e.Complemento)</th>
+                <th>@Html.DisplayNameFor(e => e.Cidade)</th>
+                <th>@Html.DisplayNameFor(e => e.Estado)</th>
+                <th>Ações</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.Cep</td>
+                    <td>@Model.Logradouro</td>
+                    <td>@Model.Bairro</td>
+                    <td>@Model.Numero</td>
+                    <td>@Model.Complemento</td>
+                    <td>@Model.Cidade</td>
+                    <td>@Model.Estado</td>
+                    <td><button type="button" class="btn btn-sm btn-light" data-modal="@Url.Action("EditarEnderecoModal", "Fornecedor", new {id = Model.Id})"><i class="bi bi-pencil"></i></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

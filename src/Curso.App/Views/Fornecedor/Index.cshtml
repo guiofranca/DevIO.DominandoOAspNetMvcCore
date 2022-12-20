@@ -1,4 +1,5 @@
 @model IEnumerable<FornecedorViewModel>
+@using Humanizer
 
 @{
     ViewData["Title"] = "Fornecedores";
@@ -21,7 +22,7 @@
                 {
                     <tr>
                         <td>@fornecedor.Nome</td>
-                        <td>@fornecedor.DataAtualizacao</td>
+                        <td>@fornecedor.DataAtualizacao.Humanize(utcDate: false)</td>
                         <td class="text-end">
                             <a class="btn btn-sm btn-light" asp-action="Detalhes" asp-route-id="@fornecedor.Id"><i class="bi bi-search"></i></a>
                             <a class="btn btn-sm btn-light" asp-action="Editar" asp-route-id="@fornecedor.Id"><i class="bi bi-pencil"></i></a>

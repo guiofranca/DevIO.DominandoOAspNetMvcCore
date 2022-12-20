@@ -36,9 +36,9 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
             .Where(predicate)
             .ToListAsync();
 
-    public async Task<TEntity> ObterPorId(Guid id) => await DbSet.FindAsync(id);
+    public async Task<TEntity> ObterPorId(Guid id) => await DbSet.AsNoTracking().FirstAsync(t => t.Id == id);
 
-    public async Task<List<TEntity>> ObterTodos() => await DbSet.ToListAsync();
+    public async Task<List<TEntity>> ObterTodos() => await DbSet.AsNoTracking().ToListAsync();
 
     public async Task Remover(Guid id)
     {

@@ -1,4 +1,5 @@
 @model IEnumerable<ProdutoViewModel>
+@using Humanizer
 
 @{
     ViewData["Title"] = "Produto";
@@ -26,7 +27,7 @@
                     <tr>
                         <td><img src="~/imagens/@produto.Imagem" alt="" height="100"></td>
                         <td>@produto.Nome</td>
-                        <td>@produto.DataAtualizacao</td>
+                        <td>@produto.DataAtualizacao.Humanize(utcDate: false)</td>
                         <td>@produto.Fornecedor?.Nome</td>
                         <td>@produto.Valor.ToString("C")</td>
                         <td>@produto.Fornecedor?.Ativo</td>

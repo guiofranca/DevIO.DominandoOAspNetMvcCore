@@ -11,12 +11,14 @@ namespace Curso.App.Controllers;
 public class FornecedorController : BaseController
 {
     private readonly IFornecedorRepository _repositorioFornecedor;
+    private readonly IEnderecoRepository _repositorioEndereco;
     private readonly IMapper _mapper;
 
-    public FornecedorController(IFornecedorRepository repositorioFornecedor, IMapper mapper)
+    public FornecedorController(IFornecedorRepository repositorioFornecedor, IMapper mapper, IEnderecoRepository repositorioEndereco)
     {
         _repositorioFornecedor = repositorioFornecedor;
         _mapper = mapper;
+        _repositorioEndereco = repositorioEndereco;
     }
 
     [HttpGet("/Fornecedor")]
@@ -73,11 +75,32 @@ public class FornecedorController : BaseController
         return RedirectToAction(nameof(Index));
     }
 
+    [HttpGet("/Fornecedor/Endereco/{id}/Editar")]
+    public async Task<IActionResult> EditarEnderecoModal(Guid id) {
+        var enderecoViewModel = await ObterEndereco(id);
+
+        if(enderecoViewModel is null) return NotFound();
+
+        return PartialView("_EditarEnderecoModal", enderecoViewModel);
+    }
+
+    [HttpPost("/Fornecedor/Endereco/{id}/Editar")]
+    public async Task<IActionResult> EditarEnderecoModal(EnderecoViewModel enderecoViewModel) {
+        if(!ModelState.IsValid) return BadRequest(ModelState.Values.SelectMany(v => v.Errors));
+        var endereco = _mapper.Map<Endereco>(enderecoViewModel);
+        await _repositorioEndereco.Atualizar(endereco);
+        return Ok(new {reload = true});
+    }
+
     private async Task<IEnumerable<FornecedorViewModel>> ObterTodos() {
         return _mapper.Map<IEnumerable<FornecedorViewModel>>(await _repositorioFornecedor.ObterTodos());
     }
 
     private async Task<FornecedorViewModel> Obter(Guid id) {
         return _mapper.Map<FornecedorViewModel>(await _repositorioFornecedor.ObterComEndereco(id));
+    }
+
+    private async Task<EnderecoViewModel> ObterEndereco(Guid id) {
+        return _mapper.Map<EnderecoViewModel>(await _repositorioEndereco.ObterPorId(id));
     }
 }

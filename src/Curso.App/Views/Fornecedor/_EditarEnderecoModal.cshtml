@@ -1,0 +1,28 @@
+@model EnderecoViewModel
+
+<div class="modal" tabindex="-1" id="editarEndereco">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar endereço</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form asp-action="EditarEnderecoModal" method="POST" id="modal-form-endereco">
+                <div class="modal-body">
+                    <input type="hidden" asp-for="FornecedorId" />
+                    <input type="hidden" asp-for="Id" />
+                    <partial name="_EnderecoFormModal">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    BuscaCep('');
+</script>
