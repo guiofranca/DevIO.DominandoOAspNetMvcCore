@@ -12,13 +12,19 @@ public class FornecedorController : BaseController
 {
     private readonly IFornecedorRepository _repositorioFornecedor;
     private readonly IEnderecoRepository _repositorioEndereco;
+    private readonly IFornecedorService _servicoFornecedor;
     private readonly IMapper _mapper;
 
-    public FornecedorController(IFornecedorRepository repositorioFornecedor, IMapper mapper, IEnderecoRepository repositorioEndereco)
+    public FornecedorController(IFornecedorRepository repositorioFornecedor,
+        IMapper mapper,
+        IEnderecoRepository repositorioEndereco,
+        IFornecedorService servicoFornecedor,
+        INotificador notificador) : base(notificador)
     {
         _repositorioFornecedor = repositorioFornecedor;
         _mapper = mapper;
         _repositorioEndereco = repositorioEndereco;
+        _servicoFornecedor = servicoFornecedor;
     }
 
     [HttpGet("/Fornecedor")]
@@ -36,7 +42,8 @@ public class FornecedorController : BaseController
     public async Task<IActionResult> Criar(FornecedorViewModel fornecedorViewModel) {
         if(!ModelState.IsValid) return View(fornecedorViewModel);
         var fornecedor = _mapper.Map<Fornecedor>(fornecedorViewModel);
-        await _repositorioFornecedor.Adicionar(fornecedor);
+        await _servicoFornecedor.Adicionar(fornecedor);
+        if(OperacaoInvalida()) return View(fornecedorViewModel);
         return RedirectToAction(nameof(Index));
     }
 
@@ -58,7 +65,8 @@ public class FornecedorController : BaseController
     public async Task<IActionResult> Editar(Guid id, FornecedorViewModel fornecedorViewModel) {
         if(!ModelState.IsValid) return View(fornecedorViewModel);
         var fornecedor = _mapper.Map<Fornecedor>(fornecedorViewModel);
-        await _repositorioFornecedor.Atualizar(fornecedor);
+        await _servicoFornecedor.Atualizar(fornecedor);
+        if(OperacaoInvalida()) return View(fornecedorViewModel);
         return RedirectToAction(nameof(Index));
     }
 
@@ -71,7 +79,7 @@ public class FornecedorController : BaseController
 
     [HttpPost("/Fornecedor/{id}/Remover")]
     public async Task<IActionResult> RemoverPost(Guid id) {
-        await _repositorioFornecedor.Remover(id);
+        await _servicoFornecedor.Remover(id);
         return RedirectToAction(nameof(Index));
     }
 
@@ -86,9 +94,10 @@ public class FornecedorController : BaseController
 
     [HttpPost("/Fornecedor/Endereco/{id}/Editar")]
     public async Task<IActionResult> EditarEnderecoModal(EnderecoViewModel enderecoViewModel) {
-        if(!ModelState.IsValid) return BadRequest(ModelState.Values.SelectMany(v => v.Errors));
+        if(!ModelState.IsValid) return UnprocessableEntity(ModelState.Values.SelectMany(v => v.Errors));
         var endereco = _mapper.Map<Endereco>(enderecoViewModel);
-        await _repositorioEndereco.Atualizar(endereco);
+        await _servicoFornecedor.AtualizarEndereco(endereco);
+        if(OperacaoInvalida()) return UnprocessableEntity();
         return Ok(new {reload = true});
     }
 

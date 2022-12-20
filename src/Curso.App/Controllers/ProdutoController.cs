@@ -11,16 +11,20 @@ namespace Curso.App.Controllers;
 public class ProdutoController : BaseController
 {
     private readonly IProdutoRepository _repositorioProduto;
+    private readonly IProdutoService _servicoProduto;
     private readonly IFornecedorRepository _repositorioFornecedor;
     private readonly IMapper _mapper;
 
-    public ProdutoController(IProdutoRepository repositorioProduto, 
+    public ProdutoController(IProdutoRepository repositorioProduto,
         IFornecedorRepository repositorioFornecedor,
-        IMapper mapper)
+        IMapper mapper,
+        IProdutoService servicoProduto,
+        INotificador notificador) : base(notificador)
     {
         _repositorioProduto = repositorioProduto;
         _repositorioFornecedor = repositorioFornecedor;
         _mapper = mapper;
+        _servicoProduto = servicoProduto;
     }
 
     [HttpGet("/Produto")]
@@ -42,13 +46,18 @@ public class ProdutoController : BaseController
             return View(produtoViewModel);
         }
 
-        produtoViewModel.Imagem = $"{Guid.NewGuid()}_{produtoViewModel.ImagemUpload.FileName}";
+        produtoViewModel.Imagem = $"{Guid.NewGuid()}_{produtoViewModel.ImagemUpload?.FileName}";
         if(!await UploadArquivo(produtoViewModel.ImagemUpload, produtoViewModel.Imagem)) {
             return View(produtoViewModel);
         }
 
         var produto = _mapper.Map<Produto>(produtoViewModel);
         await _repositorioProduto.Adicionar(produto);
+
+        if(OperacaoInvalida()) return View(produtoViewModel);
+
+        TempData["Sucesso"] = "Produto criado com Sucesso!";
+
         return RedirectToAction(nameof(Index));
     }
 
@@ -88,6 +97,9 @@ public class ProdutoController : BaseController
         }
 
         await _repositorioProduto.Atualizar(produto);
+
+        if(OperacaoInvalida()) return View(produtoViewModel);
+        
         return RedirectToAction(nameof(Index));
     }
 
@@ -101,6 +113,7 @@ public class ProdutoController : BaseController
     [HttpPost("/Produto/{id}/Remover")]
     public async Task<IActionResult> RemoverPost(Guid id) {
         await _repositorioProduto.Remover(id);
+        TempData["Sucesso"] = "Produto removido com Sucesso!";
         return RedirectToAction(nameof(Index));
     }
 

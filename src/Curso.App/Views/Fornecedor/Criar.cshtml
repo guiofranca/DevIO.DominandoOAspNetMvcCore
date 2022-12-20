@@ -8,7 +8,8 @@
 
 <form asp-controller="Fornecedor" asp-antiforgery="true" method="post" asp-action="Criar">
 <div class="row">
-    <div class="text-danger" asp-validation-summary="All"></div>
+    @* <div class="text-danger" asp-validation-summary="All"></div> *@
+    <vc:Summary></vc:Summary>
     <div class="col-md-6">
         <h4>Dados</h4>
         <div class="mb-3">
